@@ -46,6 +46,9 @@ class SignLog(db.Model):
     longitude = db.Column(db.Float)
     time = db.Column(db.Date)
 
+    map_id = db.Column(db.Integer, db.ForeignKey('map.id'))
+    map = db.relationship('Map', backref=db.backref('sign_set', lazy='dynamic'))
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('sign_set', lazy='dynamic'))
 

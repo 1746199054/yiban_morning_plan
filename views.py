@@ -267,7 +267,7 @@ def user_info():
     for i in tmp:
         time = '%d/%d' % (i.time.month, i.time.day)
         data['history'].append(
-            {'type_id': i.type, 'location_des': i.name, 'latitude': i.latitude, 'longitude': i.longitude,
+            {'type_id': i.type, 'location_des': i.map.name, 'latitude': i.latitude, 'longitude': i.longitude,
              'time': time})
 
     return success(data)

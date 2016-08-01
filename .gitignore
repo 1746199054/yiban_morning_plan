@@ -2,6 +2,7 @@
 log/
 reload
 uwsgi.log
+test.db
 
 __pycache__/
 *.py[cod]

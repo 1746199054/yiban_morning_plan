@@ -1,0 +1,61 @@
+2016-10-03 21:08:08,401 ERROR: 视图出错，测试错误 [in D:\workspace\python\run_flask\utils\tools.py:25]
+2016-10-03 21:08:10,618 ERROR: 视图出错，测试错误 [in D:\workspace\python\run_flask\utils\tools.py:25]
+2016-10-03 21:32:07,546 ERROR: 视图出错，测试错误 [in D:\workspace\python\run_flask\utils\tools.py:25]
+2016-10-05 09:42:41,135 ERROR: Exception on /api/get_rank/ [GET] [in D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py:1587]
+Traceback (most recent call last):
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\workspace\python\run_flask\views.py", line 81, in get_rank
+    data = {'run': _get_run_rank(), 'read': _get_read_rank()}
+  File "D:\workspace\python\run_flask\views.py", line 87, in _get_run_rank
+    tmp = User.query.order_by(User.continue_run).limit(10).all()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\query.py", line 2613, in all
+    return list(self)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 86, in instances
+    util.raise_from_cause(err)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\util\compat.py", line 202, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 71, in instances
+    rows = [proc(row) for row in fetch]
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 428, in _instance
+    loaded_instance, populate_existing, populators)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 486, in _populate_full
+    dict_[key] = getter(row)
+ValueError: Couldn't parse datetime string: u''
+2016-10-05 09:44:51,569 ERROR: Exception on /api/get_rank/ [GET] [in D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py:1587]
+Traceback (most recent call last):
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\workspace\python\run_flask\views.py", line 85, in get_rank
+    data = {'run': _get_run_rank(), 'read': _get_read_rank()}
+  File "D:\workspace\python\run_flask\views.py", line 91, in _get_run_rank
+    tmp = User.query.order_by(User.continue_run).limit(10).all()
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\query.py", line 2613, in all
+    return list(self)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 86, in instances
+    util.raise_from_cause(err)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\util\compat.py", line 202, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 71, in instances
+    rows = [proc(row) for row in fetch]
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 428, in _instance
+    loaded_instance, populate_existing, populators)
+  File "D:\workspace\py_virtualenv\env\lib\site-packages\sqlalchemy\orm\loading.py", line 486, in _populate_full
+    dict_[key] = getter(row)
+ValueError: Couldn't parse datetime string: u''

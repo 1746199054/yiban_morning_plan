@@ -59,6 +59,9 @@ def oauth():
     else:
         if 'flag' in request.args:
             session['flag'] = int(request.args['flag'])
+        else:
+            if 'flag' in session['flag']:
+                del session['flag']
         if 'admin' in request.args:
             session['admin'] = ' '
     return redirect(auth_url)
@@ -226,10 +229,3 @@ def set_flag():
             return success('成功更新')
     return success('参数错误')
 
-
-def admin_login():
-    if request.form.get('user', '') == 'admin' and request.form.get('password', '') == '31415926535':
-        session['admin'] = True
-        return success('')
-    else:
-        return error('')

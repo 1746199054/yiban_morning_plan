@@ -73,9 +73,12 @@ def check_valid(flag, latitude, longitude):
 
 
 def get_type(type):
-    from models import Map
-    m = Map.query.get(type)
-    return m.type
+    try:
+        from models import Map
+        m = Map.query.get(type)
+        return m.type
+    except Exception as e:
+        return 0
 
 
 if __name__ == '__main__':

@@ -86,7 +86,7 @@ def get_count_info():
             }}
     else:
         all = User.query.count()
-        type = get_type(session.get('flag', 0))
+        type = get_type(session.get('flag', 1))
         if type == 0:
             rank_count = User.query.filter(User.continue_read < g.user.continue_read).count()
         else:

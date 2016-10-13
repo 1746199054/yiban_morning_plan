@@ -1,5 +1,7 @@
 .idea/
 log/
+reload
+uwsgi.log
 
 __pycache__/
 *.py[cod]

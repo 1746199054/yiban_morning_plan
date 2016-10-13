@@ -10,7 +10,6 @@ app.add_url_rule('/api/do_sign/', 'do_sign', views.do_sign, methods=['POST'])
 app.add_url_rule('/api/share/', 'share', views.share, methods=['POST'])
 app.add_url_rule('/api/get_flag/', 'get_flag', views.get_flag)
 app.add_url_rule('/api/set_flag/', 'set_flag', views.set_flag, methods=['POST'])
-app.add_url_rule('/api/admin_login/', 'admin_login', views.admin_login, methods=['POST'])
 
 app.debug = True
 if not app.debug:

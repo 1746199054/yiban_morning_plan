@@ -77,3 +77,6 @@ def get_type(type):
     m = Map.query.get(type)
     return m.type
 
+
+if __name__ == '__main__':
+    print distance(106.299564, 29.596987, 106.30032, 29.595375)

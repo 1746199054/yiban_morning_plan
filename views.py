@@ -60,7 +60,7 @@ def oauth():
         if 'flag' in request.args:
             session['flag'] = int(request.args['flag'])
         else:
-            if 'flag' in session['flag']:
+            if 'flag' in session:
                 del session['flag']
         if 'admin' in request.args:
             session['admin'] = ' '

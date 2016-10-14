@@ -8,6 +8,7 @@ app.add_url_rule('/api/get_count_info/', 'get_count_info', views.get_count_info)
 app.add_url_rule('/api/get_rank/', 'get_rank', views.get_rank)
 app.add_url_rule('/api/do_sign/', 'do_sign', views.do_sign, methods=['POST'])
 app.add_url_rule('/api/share/', 'share', views.share, methods=['POST'])
+app.add_url_rule('/api/user_info/', 'user_info', views.user_info)
 app.add_url_rule('/api/get_flag/', 'get_flag', views.get_flag)
 app.add_url_rule('/api/set_flag/', 'set_flag', views.set_flag, methods=['POST'])
 

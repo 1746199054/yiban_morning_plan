@@ -229,3 +229,39 @@ def set_flag():
             return success('成功更新')
     return success('参数错误')
 
+
+def user_info():
+    id = request.args.get('id')
+    if not id:
+        return error()
+    user = User.query.get(int(id))
+    if not user:
+        return error('用户不存在！')
+    all = User.query.count()
+    run_rank = User.query.filter(User.continue_run < user.continue_run).count()
+    read_rank = User.query.filter(User.continue_read < user.continue_read).count()
+    data = {
+        'info': {
+            'name': user.name,
+            'head': user.head_img,
+        },
+        'run': {
+            'total': user.total_run,
+            'continue': user.continue_run,
+            'rank': int(run_rank / float(all) * 100)
+        },
+        'read': {
+            'total': user.total_read,
+            'continue': user.continue_read,
+            'rank': int(read_rank / float(all) * 100)
+        },
+        'history': []
+    }
+    tmp = user.sign_set.order_by(SignLog.id.desc()).limit(10).all()
+    for i in tmp:
+        time = '%d/%d' % (i.time.month, i.time.day)
+        data['history'].append(
+            {'type_id': i.type, 'location_des': i.location_des, 'latitude': i.latitude, 'longitude': i.longitude,
+             'time': time})
+
+    return success(data)

@@ -1,9 +1,10 @@
 #! -*- coding:utf8 -*-
-import os
+import os, sys
 from datetime import timedelta, datetime
 from datetime import date
-
 from os.path import dirname
+
+sys.path.append(dirname(dirname(os.path.realpath(__file__))))
 
 from app import db
 from models import User

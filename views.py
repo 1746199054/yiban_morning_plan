@@ -64,6 +64,9 @@ def oauth():
                 del session['flag']
         if 'admin' in request.args:
             session['admin'] = ' '
+        else:
+            if 'admin' in session:
+                del session['admin']
     return redirect(auth_url)
 
 
@@ -265,3 +268,5 @@ def user_info():
              'time': time})
 
     return success(data)
+
+

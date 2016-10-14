@@ -62,7 +62,7 @@ def check_valid(flag, latitude, longitude):
         from models import Map
         m = Map.query.get(flag)
         d = distance(longitude, latitude, float(m.longitude), float(m.latitude))
-        if d > 300:
+        if d > 150:
             return False
         else:
             return True

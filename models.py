@@ -69,11 +69,13 @@ class SignLog(db.Model):
 class Map(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     type = db.Column(db.Integer)  # ('早读','晨跑')
+    name = db.Column(db.String(255))
     latitude = db.Column(db.DECIMAL(10, 6))
     longitude = db.Column(db.DECIMAL(10, 6))
 
-    def __init__(self, type, latitude, longitude):
+    def __init__(self, type, name, latitude, longitude):
         self.type = type
+        self.name = name
         self.latitude = latitude
         self.longitude = longitude
 

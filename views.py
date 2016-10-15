@@ -138,8 +138,9 @@ def do_sign():
         current_app.logger.error("'flag' not in session,yiban id %s" % g.user.id)
         return error('请在易班客户端扫码进入此页面')
 
-    if not check_valid(int(session['flag']), float(request.form.get('latitude', 0)),
-                       float(request.form.get('longitude', 0))):
+    result, location = check_valid(int(session['flag']), float(request.form.get('latitude', 0)),
+                                   float(request.form.get('longitude', 0)))
+    if not result:
         return error('位置信息有误')
 
     one_day = timedelta(days=1)
@@ -172,7 +173,7 @@ def do_sign():
     db.session.add(g.user)
     db.session.commit()
     ranking = SignLog.query.filter(SignLog.type == type, SignLog.time == today).count()
-    return success({'ranking': ranking})
+    return success({'ranking': ranking, 'location': location})
 
 
 def share():
@@ -203,7 +204,8 @@ def get_flag():
     all = Map.query.all()
     data = []
     for i in all:
-        data.append({'id': i.id, 'type': i.type, 'latitude': float(i.latitude), 'longitude': float(i.longitude)})
+        data.append({'id': i.id, 'type': i.type, 'name': i.name, 'latitude': float(i.latitude),
+                     'longitude': float(i.longitude)})
     return success(data)
 
 
@@ -213,9 +215,9 @@ def set_flag():
         type = int(request.form.get('type', 0))
         latitude = float(request.form.get('latitude', 0))
         longitude = float(request.form.get('longitude', 0))
-
+        name = request.form.get('name', '')
     if not request.form.get('id'):
-        m = Map(type, latitude, longitude)
+        m = Map(type, name, latitude, longitude)
         m.save()
         return success('成功创建')
     else:
@@ -226,6 +228,7 @@ def set_flag():
             return success('成功删除')
         else:
             m.type = type
+            m.name = name
             m.latitude = latitude
             m.longitude = longitude
             m.save()
@@ -264,9 +267,7 @@ def user_info():
     for i in tmp:
         time = '%d/%d' % (i.time.month, i.time.day)
         data['history'].append(
-            {'type_id': i.type, 'location_des': i.location_des, 'latitude': i.latitude, 'longitude': i.longitude,
+            {'type_id': i.type, 'location_des': i.name, 'latitude': i.latitude, 'longitude': i.longitude,
              'time': time})
 
     return success(data)
-
-

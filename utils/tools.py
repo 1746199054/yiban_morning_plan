@@ -63,13 +63,13 @@ def check_valid(flag, latitude, longitude):
         m = Map.query.get(flag)
         d = distance(longitude, latitude, float(m.longitude), float(m.latitude))
         if d > 150:
-            return False
+            return (False, '')
         else:
-            return True
+            return (True, m.name)
     except Exception as e:
         from flask import current_app
         current_app.logger.error('检查经纬度有效性出错，%s' % str(e))
-        return False
+        return (False, '')
 
 
 def get_type(type):

@@ -34,7 +34,7 @@ def admin_required(f):
     def decorated_function(*args, **kwargs):
         if 'yiban_id' not in session:
             return error('未登陆', 10)
-        if session.get('yiban_id', '') not in ['5566213']:
+        if session.get('yiban_id', '') not in ['5566213', '5559093']:
             return error('没有权限', 1)
         if current_app.debug:
             return f(*args, **kwargs)

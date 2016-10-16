@@ -52,7 +52,7 @@ class SignLog(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('sign_set', lazy='dynamic'))
 
-    def __init__(self, flag, location_des, latitude, longitude, user_id,map_id):
+    def __init__(self, flag, location_des, latitude, longitude, user_id, map_id):
         self.flag = flag
         self.type = get_type(flag)
         self.location_des = location_des
@@ -85,6 +85,34 @@ class Map(db.Model):
 
     def __repr__(self):
         return '<Map latitude:%s latitude:%s %s>' % (self.latitude, self.longitude, ('早读', '晨跑')[self.type])
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class ErrorLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    latitude = db.Column(db.DECIMAL(10, 6))
+    longitude = db.Column(db.DECIMAL(10, 6))
+    time = db.Column(db.DateTime)
+
+    map_id = db.Column(db.Integer, db.ForeignKey('map.id'))
+    map = db.relationship('Map', backref=db.backref('error_set', lazy='dynamic'))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref=db.backref('error_set', lazy='dynamic'))
+
+    def __init__(self, latitude, longitude, user_id, flag):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.user_id = user_id
+        self.time = datetime.now()
+        self.map_id = flag
 
     def save(self):
         db.session.add(self)

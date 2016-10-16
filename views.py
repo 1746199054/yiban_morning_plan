@@ -14,7 +14,7 @@ from flask import session
 from sqlalchemy.orm.strategy_options import joinedload
 
 from app import db
-from models import User, SignLog, Map
+from models import User, SignLog, Map, ErrorLog
 from setting import AppSecret, AppID, YibanCallback, BASE_URL, SHARE_DATA
 from utils.login_require import login_required, admin_required
 from utils.tools import decrypt, error, success, check_valid, get_type
@@ -143,6 +143,9 @@ def do_sign():
     result, location = check_valid(int(session['flag']), float(request.form.get('latitude', 0)),
                                    float(request.form.get('longitude', 0)))
     if not result:
+        e = ErrorLog(float(request.form.get('latitude', 0)), float(request.form.get('longitude', 0)), g.user.id,
+                     int(session['flag']))
+        e.save()
         return error('位置信息有误，请尝试打开手机WIFI提高定位精度 <a href="javascript:;" class="open-popup" data-target="#info">详情</a>')
 
     one_day = timedelta(days=1)

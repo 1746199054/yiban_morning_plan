@@ -96,6 +96,7 @@ def get_count_info():
             rank_count = User.query.filter(User.continue_run < g.user.continue_run).count()
 
         data = {
+            'type': type,
             'total': g.user.total_read,
             'continue': g.user.continue_read,
             'rank': int(rank_count / float(all) * 100)
@@ -141,7 +142,7 @@ def do_sign():
     result, location = check_valid(int(session['flag']), float(request.form.get('latitude', 0)),
                                    float(request.form.get('longitude', 0)))
     if not result:
-        return error('位置信息有误')
+        return error('位置信息有误，请尝试打开手机WIFI提高定位精度 <a href="javascript:;" class="open-popup" data-target="#info">详情</a>')
 
     one_day = timedelta(days=1)
     today = date.today()

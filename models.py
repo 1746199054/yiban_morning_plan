@@ -52,17 +52,18 @@ class SignLog(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('sign_set', lazy='dynamic'))
 
-    def __init__(self, flag, location_des, latitude, longitude, user_id):
+    def __init__(self, flag, location_des, latitude, longitude, user_id,map_id):
         self.flag = flag
         self.type = get_type(flag)
         self.location_des = location_des
         self.latitude = latitude
         self.longitude = longitude
         self.user_id = user_id
+        self.map_id = map_id
         self.time = date.today()
 
     def __repr__(self):
-        return '<User %d %s in %s at %s>' % (self.username, ('早读', '晨跑')[self.type], self.location_des, self.time)
+        return '<%s in %s at %s>' % (('早读', '晨跑')[self.type], self.location_des, self.time)
 
     def save(self):
         db.session.add(self)

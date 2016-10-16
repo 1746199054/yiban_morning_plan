@@ -11,6 +11,7 @@ from flask import g
 from flask import redirect
 from flask import request
 from flask import session
+from sqlalchemy.orm.strategy_options import joinedload
 
 from app import db
 from models import User, SignLog, Map
@@ -169,7 +170,7 @@ def do_sign():
         g.user.total_run += 1
     sign = SignLog(int(session['flag']), request.form.get('location_des', ''),
                    request.form.get('latitude', ''),
-                   request.form.get('longitude', ''), g.yiban_id)
+                   request.form.get('longitude', ''), g.yiban_id, session.get('flag', 1))
     db.session.add(sign)
     db.session.add(g.user)
     db.session.commit()
@@ -264,7 +265,8 @@ def user_info():
         },
         'history': []
     }
-    tmp = user.sign_set.order_by(SignLog.id.desc()).limit(10).all()
+
+    tmp = user.sign_set.join(Map).order_by(SignLog.id.desc()).limit(10).all()
     for i in tmp:
         time = '%d/%d' % (i.time.month, i.time.day)
         data['history'].append(

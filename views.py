@@ -3,7 +3,7 @@ import json
 import sys
 import time
 import urllib2
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from urllib import urlencode, quote
 
 from flask import current_app
@@ -139,6 +139,13 @@ def do_sign():
     if 'flag' not in session:
         current_app.logger.error("'flag' not in session,yiban id %s" % g.user.id)
         return error('请在易班客户端扫码进入此页面')
+
+    t = datetime.now()
+    minutes = t.hour * 60 + t.minute
+    if minutes < 450:
+        return error('签到时间未到，请在早上7:30-8:30之间签到')
+    if minutes > 510:
+        return error('签到时间已过，请在早上7:30-8:30之间签到')
 
     result, location = check_valid(int(session['flag']), float(request.form.get('latitude', 0)),
                                    float(request.form.get('longitude', 0)))
